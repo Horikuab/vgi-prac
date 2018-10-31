@@ -667,6 +667,7 @@ void CEntornVGIView::OnPaint()
 // ---------- Entorn VGI: DESCOMENTAR QUAN S'IMPLEMENTI PROJECCIO ORTOGRÀFICA
 // PLANTA (Inferior Esquerra)
 		// Definició de Viewport, Projecció i Càmara
+		glScissor(0, 0, w / 2 - 1, h / 2 - 1);
 		Projeccio_Orto(0,0,w/2-1,h/2-1);
 		Vista_Ortografica(0, OPV.R, c_fons, col_obj, objecte, mida, pas, oculta,
 			test_vis, back_line, ilumina, llum_ambient, llumGL, textura, textura_map, ifixe, eixos);
@@ -679,6 +680,7 @@ void CEntornVGIView::OnPaint()
 
 // ISOMÈTRICA (Inferior Dreta)
 		// Definició de Viewport, Projecció i Càmara
+		glScissor(w / 2, 0, w, h / 2 - 1);
 		Projeccio_Orto(w/2,0,w,h/2-1);
 		Vista_Ortografica(3, OPV.R, c_fons, col_obj, objecte, mida, pas, oculta,
 			test_vis, back_line, ilumina, llum_ambient, llumGL, textura, textura_map, ifixe, eixos);
@@ -691,6 +693,7 @@ void CEntornVGIView::OnPaint()
 
 // ALÇAT (Superior Esquerra)
 		// Definició de Viewport, Projecció i Càmara
+		glScissor(0, h / 2, w / 2 - 1, h);
 		Projeccio_Orto(0,h/2,w/2-1,h);
 		Vista_Ortografica(1, OPV.R, c_fons, col_obj, objecte, mida, pas, oculta,
 			test_vis, back_line, ilumina, llum_ambient, llumGL, textura, textura_map, ifixe, eixos);
@@ -703,6 +706,7 @@ void CEntornVGIView::OnPaint()
 
    //PERFIL (Superior Dreta)
 		// Definició de Viewport, Projecció i Càmara
+		glScissor(w / 2, h / 2, w, h);
 		Projeccio_Orto(w/2,h/2,w,h);
 		Vista_Ortografica(2, OPV.R, c_fons, col_obj, objecte, mida, pas, oculta,
 			test_vis, back_line, ilumina, llum_ambient, llumGL, textura, textura_map, ifixe, eixos);

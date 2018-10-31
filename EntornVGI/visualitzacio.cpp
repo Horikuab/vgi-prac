@@ -213,11 +213,10 @@ void Projeccio_Orto(int minx,int miny,int maxx,int maxy)
 // ---- Entorn VGI: ATENCIÓ!!. ESPECIFICACIO DELS PARÀMETRES DE PROJECCIÓ ORTOGRÀFICA
 //			        QUE ES CARREGUEN A LA MATRIU DE PROJECCIÓ GL_PROJECTION
 	
-	glScissor(minx, miny, maxx, maxy);
 	glViewport(minx, miny, maxx, maxy);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-8, 8, -8, 8, -10, 10);
+	glOrtho(-10, 10, -10, 10, -10, 10);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -239,16 +238,16 @@ void Vista_Ortografica(int prj,GLfloat Raux,CColor col_fons,CColor col_object,ch
 	switch (prj)
 	{
 	case 1:
-		gluLookAt(0, 5, 0, 0, 0, 0, 0,0, 1);
+		gluLookAt(0, 10, 5, 0, 0, 5, 0,0, 1);
 		break;
 	case 2:
-		//gluLookAt(0, 5, 0, 0, 0, 0, 1, 0, 0);
+		gluLookAt(10, 5, 5, 0, 5, 5, 0, 0, 1);
 		break;
 	case 3:
-		//gluLookAt();
+		gluLookAt(10, 10, 0, 0, 0, 0, 0, 0, 1);
 		break;
 	default:
-		gluLookAt(0, 0, 5, 0, 0, 0, 0, -1, 0);
+		gluLookAt(0, 0, 10, 0, 0, 0, 0, -1, 0);
 		break;
 	}
 	
