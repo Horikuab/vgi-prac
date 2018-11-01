@@ -212,11 +212,25 @@ void Projeccio_Orto(int minx,int miny,int maxx,int maxy)
 {   
 // ---- Entorn VGI: ATENCIÓ!!. ESPECIFICACIO DELS PARÀMETRES DE PROJECCIÓ ORTOGRÀFICA
 //			        QUE ES CARREGUEN A LA MATRIU DE PROJECCIÓ GL_PROJECTION
+	float w = maxx - minx;
+	float h = maxy - miny;
+	float a = 1;
+	if (w < h) {
+		
+		a =  w/h ;
+		glViewport(minx, miny, w, h);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(-10*a, 10*a, -10, 10, -10, 10);
+	}
+	else {
+		a = h/w;
+		glViewport(minx, miny, w, h);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(-10, 10, -10*a, 10*a, -10, 10);
+	}
 	
-	glViewport(minx, miny, maxx, maxy);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-10, 10, -10, 10, -10, 10);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }

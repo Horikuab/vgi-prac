@@ -666,6 +666,7 @@ void CEntornVGIView::OnPaint()
 // les quatre vistes ortogràfiques
 // ---------- Entorn VGI: DESCOMENTAR QUAN S'IMPLEMENTI PROJECCIO ORTOGRÀFICA
 // PLANTA (Inferior Esquerra)
+		
 		// Definició de Viewport, Projecció i Càmara
 		glScissor(0, 0, w / 2 - 1, h / 2 - 1);
 		Projeccio_Orto(0,0,w/2-1,h/2-1);
@@ -703,7 +704,7 @@ void CEntornVGIView::OnPaint()
 			//glScalef();			// Escalat d'objectes, per adequar-los a les vistes ortogràfiques (Pràctica 2)
 			dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
 		glPopMatrix();
-
+		
    //PERFIL (Superior Dreta)
 		// Definició de Viewport, Projecció i Càmara
 		glScissor(w / 2, h / 2, w, h);
