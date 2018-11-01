@@ -165,13 +165,14 @@
 #define ID_SHADER_LOAD_FILES            32838
 #define ID_PROJECCI32839                32839
 #define ID_PROJECCIOORTOGRAFICA         32840
+#define ID_PROJECCI32841                32841
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32841
+#define _APS_NEXT_COMMAND_VALUE         32842
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

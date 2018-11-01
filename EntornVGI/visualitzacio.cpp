@@ -252,13 +252,13 @@ void Vista_Ortografica(int prj,GLfloat Raux,CColor col_fons,CColor col_object,ch
 	switch (prj)
 	{
 	case 1:
-		gluLookAt(0, 10, 5, 0, 0, 5, 0,0, 1);
+		gluLookAt(0, 10, 1, 0, 0, 1, 0,0, 1);
 		break;
 	case 2:
-		gluLookAt(10, 5, 5, 0, 5, 5, 0, 0, 1);
+		gluLookAt(10, 1, 1, 0, 1, 1, 0, 0, 1);
 		break;
 	case 3:
-		gluLookAt(10, 10, 0, 0, 0, 0, 0, 0, 1);
+		gluLookAt(1, 1,1, 0, 0, 0, 0, 0, 1);
 		break;
 	default:
 		gluLookAt(0, 0, 10, 0, 0, 0, 0, -1, 0);

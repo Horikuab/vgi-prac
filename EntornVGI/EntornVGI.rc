@@ -326,6 +326,7 @@ BEGIN
     BEGIN
         MENUITEM "Perspectiva",                 ID_PROJECCIO_PERSPECTIVA, CHECKED
         MENUITEM "Ortogràfica",                 ID_PROJECCIOORTOGRAFICA, CHECKED
+        MENUITEM "Axonomètrica",                ID_PROJECCI32841, CHECKED
     END
     POPUP "Objecte"
     BEGIN

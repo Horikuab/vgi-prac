@@ -160,6 +160,8 @@ BEGIN_MESSAGE_MAP(CEntornVGIView, CView)
 	ON_UPDATE_COMMAND_UI(ID_SHADER_LOAD_FILES, &CEntornVGIView::OnUpdateShaderLoadFiles)
 		ON_COMMAND(ID_PROJECCIOORTOGRAFICA, &CEntornVGIView::OnProjeccioortografica)
 		ON_UPDATE_COMMAND_UI(ID_PROJECCIOORTOGRAFICA, &CEntornVGIView::OnUpdateProjeccioortografica)
+		ON_COMMAND(ID_PROJECCI32841, &CEntornVGIView::OnAxonometrica)
+		ON_UPDATE_COMMAND_UI(ID_PROJECCI32841, &CEntornVGIView::OnUpdateAxonometrica)
 		END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -633,12 +635,13 @@ void CEntornVGIView::OnPaint()
 		glViewport(0, 0, w, h);
 
 // Aquí farem les crides per a definir Viewport, Projecció i Càmara: INICI -------------------------
-
+		Projeccio_Orto(0, 0, w, h);
+		Vista_Esferica(OPV, Vis_Polar, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, mida,pas, oculta, test_vis, back_line, ilumina, llum_ambient, llumGL, textura, textura_map, ifixe, eixos);
 // Aquí farem les cridesper a definir Viewport, Projecció i Càmara:: FI -------------------------
 		// Dibuixar Model (escena)
 		glPushMatrix();
 			configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-			// glScalef();			// Escalat d'objectes, per adequar-los a les vistes ortogràfiques
+			//glScalef();			// Escalat d'objectes, per adequar-los a les vistes ortogràfiques
 			dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
 		glPopMatrix();
 
@@ -666,7 +669,8 @@ void CEntornVGIView::OnPaint()
 // les quatre vistes ortogràfiques
 // ---------- Entorn VGI: DESCOMENTAR QUAN S'IMPLEMENTI PROJECCIO ORTOGRÀFICA
 // PLANTA (Inferior Esquerra)
-		
+		zzoom = false;
+		mobil = false;
 		// Definició de Viewport, Projecció i Càmara
 		glScissor(0, 0, w / 2 - 1, h / 2 - 1);
 		Projeccio_Orto(0,0,w/2-1,h/2-1);
@@ -3720,5 +3724,24 @@ void CEntornVGIView::OnUpdateProjeccioortografica(CCmdUI *pCmdUI)
 {
 	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
 	if (projeccio == ORTO) pCmdUI->SetCheck(1);
+	else pCmdUI->SetCheck(0);
+}
+
+
+void CEntornVGIView::OnAxonometrica()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	projeccio = AXONOM;
+	OnPaint();
+	InvalidateRect(NULL, false);
+	mobil = true;
+	zzoom = true;
+}
+
+
+void CEntornVGIView::OnUpdateAxonometrica(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (projeccio == AXONOM) pCmdUI->SetCheck(1);
 	else pCmdUI->SetCheck(0);
 }
