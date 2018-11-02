@@ -336,6 +336,7 @@ BEGIN
         MENUITEM "Tetera",                      32789, CHECKED
         MENUITEM "Tie",                         ID_OBJECTE_TIE, CHECKED
         MENUITEM "Truck",                       32790, CHECKED
+        MENUITEM "Camió",                       ID_OBJECTE_CAMI32842, CHECKED
     END
     POPUP "Transforma"
     BEGIN

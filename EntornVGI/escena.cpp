@@ -21,7 +21,25 @@ GLuint texturID[NUM_MAX_TEXTURES] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 // Variables de color i reflexió de materials pels objectes d'escena
 CColor color_objecte;
 bool reflexio_material, sw_materials[4];
-
+void camio() {
+	
+	glPushMatrix();
+		glColor3f(0, 0.7, 0.7);
+		glTranslatef(0.0f,2.0f,2.0f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(0.5, 0.5, 0.5);
+		glTranslatef(0.0f, 0.0f, 2.0f);
+		glScalef(2.0,5.0,2.0);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(0.7, 0.7, 0.7);
+		glTranslatef(5,0,0);
+		glutSolidTorus(0.1, 0.2,10,10);
+	glPopMatrix();
+}
 // dibuixa_EscenaGL: Dibuix de l'escena amb comandes GL
 void dibuixa_EscenaGL(char objecte, CColor col_object, bool ref_mat, bool sw_mat[4], bool textur)
 {
@@ -45,6 +63,9 @@ void dibuixa_EscenaGL(char objecte, CColor col_object, bool ref_mat, bool sw_mat
 		glPopMatrix();
 		break;
 
+	case CAMIO:
+		camio();
+		break;
 // Dibuix de l'objecte TIE (Nau enemiga Star Wars)
 	case TIE:
 		tie();

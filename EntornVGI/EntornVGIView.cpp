@@ -162,6 +162,8 @@ BEGIN_MESSAGE_MAP(CEntornVGIView, CView)
 		ON_UPDATE_COMMAND_UI(ID_PROJECCIOORTOGRAFICA, &CEntornVGIView::OnUpdateProjeccioortografica)
 		ON_COMMAND(ID_PROJECCI32841, &CEntornVGIView::OnAxonometrica)
 		ON_UPDATE_COMMAND_UI(ID_PROJECCI32841, &CEntornVGIView::OnUpdateAxonometrica)
+		ON_COMMAND(ID_OBJECTE_CAMI32842, &CEntornVGIView::OnObjecteCamio)
+		ON_UPDATE_COMMAND_UI(ID_OBJECTE_CAMI32842, &CEntornVGIView::OnUpdateObjecteCamio)
 		END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -732,6 +734,7 @@ void CEntornVGIView::OnPaint()
 		glDisable(GL_SCISSOR_TEST);		// Desactivació del retall de pantalla
 
 		// Definició de Viewport, Projecció i Càmara
+		
 		Projeccio_Perspectiva(0, 0, w, h, OPV.R);
 		if (navega)	{	Vista_Navega(opvN, false, n, vpv, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, true, pas,
 							oculta, test_vis, back_line, ilumina, llum_ambient, llumGL, textura, textura_map, ifixe, eixos);
@@ -2619,7 +2622,7 @@ void CEntornVGIView::OnVistaOrigenpan()
 				tr_cpv.x = 0;	tr_cpv.y = 0;	tr_cpv.z = 0;
 			}
 
-// Crida a OnPaint() per redibuixar l'escena
+// Crida a OnPaint() per rer l'escena
 	InvalidateRect(NULL, false);
 }
 
@@ -2722,9 +2725,13 @@ void CEntornVGIView::OnObjecteCub()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
+	if (projeccio == PERSPECT) {
+		OPV.R = 10;
+	}
 
 
 // Crida a OnPaint() per redibuixar l'escena
+	OnPaint();
 	InvalidateRect(NULL, false);
 }
 
@@ -2744,8 +2751,11 @@ void CEntornVGIView::OnObjecteCubRGB()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
-
+	if (projeccio == PERSPECT) {
+		OPV.R = 20;
+	}
 // Crida a OnPaint() per redibuixar l'escena
+	OnPaint();
 	InvalidateRect(NULL, false);
 }
 
@@ -2765,8 +2775,11 @@ void CEntornVGIView::OnObjecteEsfera()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
-
+	if (projeccio == PERSPECT) {
+		OPV.R = 15;
+	}
 // Crida a OnPaint() per redibuixar l'escena
+	OnPaint();
 	InvalidateRect(NULL, false);
 }
 
@@ -2785,8 +2798,11 @@ void CEntornVGIView::OnObjecteTetera()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
-
+	if (projeccio == PERSPECT) {
+		OPV.R = 15;
+	}
 // Crida a OnPaint() per redibuixar l'escena
+	OnPaint();
 	InvalidateRect(NULL, false);
 }
 
@@ -2811,8 +2827,11 @@ void CEntornVGIView::OnObjecteTruck()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
-
+	if (projeccio == PERSPECT) {
+		OPV.R = 250;
+	}
 // Crida a OnPaint() per redibuixar l'escena
+	OnPaint();
 	InvalidateRect(NULL, false);
 }
 
@@ -2832,8 +2851,11 @@ void CEntornVGIView::OnObjecteTie()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
-
+	if (projeccio == PERSPECT) {
+		OPV.R = 200;
+	}
 // Crida a OnPaint() per redibuixar l'escena
+	OnPaint();
 	InvalidateRect(NULL, false);
 }
 
@@ -3744,4 +3766,28 @@ void CEntornVGIView::OnUpdateAxonometrica(CCmdUI *pCmdUI)
 	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
 	if (projeccio == AXONOM) pCmdUI->SetCheck(1);
 	else pCmdUI->SetCheck(0);
+}
+
+
+void CEntornVGIView::OnObjecteCamio()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	objecte = CAMIO;
+	if (projeccio == PERSPECT) {
+		OPV.R = 10;
+	}
+	OnPaint();
+	InvalidateRect(NULL, false);
+
+}
+
+
+void CEntornVGIView::OnUpdateObjecteCamio(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (objecte == CAMIO) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
+	
 }
