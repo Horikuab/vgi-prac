@@ -183,6 +183,20 @@ void vaixell() {
 		glScalef(1.0f, 0.15f, 5.25f);
 		glutSolidCube(1.0);
 	glPopMatrix();
+	//discAspaesq1
+	glPushMatrix();
+		glColor3f(1.0, 0.9, 1.0);
+		glTranslatef(5.5f, 0.0f, 1.5f);
+		glRotatef(90,0,1,0);
+		gluDisc(2.475, 2.625,300,1);
+	glPopMatrix();
+	//discAspaesq2
+	glPushMatrix();
+		glColor3f(1.0, 0.9, 1.0);
+		glTranslatef(4.5f, 0.0f, 1.5f);
+		glRotatef(90, 0, 1, 0);
+		gluDisc(2.475, 2.625, 300, 1);
+	glPopMatrix();
 	//Aspadret
 	glPushMatrix();
 		glColor3f(1.0, 0.5, 1.0);
@@ -210,6 +224,20 @@ void vaixell() {
 		glRotatef(135, 1, 0, 0);
 		glScalef(1.0f, 0.15f, 5.25f);
 		glutSolidCube(1.0);
+	glPopMatrix();
+	//discAspadret1
+	glPushMatrix();
+		glColor3f(1.0, 0.9, 1.0);
+		glTranslatef(-3.5f, 0.0f, 1.5f);
+		glRotatef(90, 0, 1, 0);
+		gluDisc(2.475, 2.625, 300, 1);
+	glPopMatrix();
+	//discAspadret2
+	glPushMatrix();
+		glColor3f(1.0, 0.9, 1.0);
+		glTranslatef(-2.5f, 0.0f, 1.5f);
+		glRotatef(90, 0, 1, 0);
+		gluDisc(2.475, 2.625, 300, 1);
 	glPopMatrix();
 }
 // dibuixa_EscenaGL: Dibuix de l'escena amb comandes GL
