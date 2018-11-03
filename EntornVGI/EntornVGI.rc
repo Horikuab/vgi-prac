@@ -337,6 +337,7 @@ BEGIN
         MENUITEM "Tie",                         ID_OBJECTE_TIE, CHECKED
         MENUITEM "Truck",                       32790, CHECKED
         MENUITEM "Camió",                       ID_OBJECTE_CAMI32842, CHECKED
+        MENUITEM "Vaixell",                     ID_OBJECTE_VAIXELL, CHECKED
     END
     POPUP "Transforma"
     BEGIN

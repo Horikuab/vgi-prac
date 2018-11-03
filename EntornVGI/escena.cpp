@@ -23,21 +23,80 @@ CColor color_objecte;
 bool reflexio_material, sw_materials[4];
 void camio() {
 	
+	//cabina
 	glPushMatrix();
 		glColor3f(0, 0.7, 0.7);
-		glTranslatef(0.0f,2.0f,2.0f);
+		glTranslatef(0.0f,3.0f,0.5f);
 		glutSolidCube(1.0);
 	glPopMatrix();
+	//carrega
 	glPushMatrix();
 		glColor3f(0.5, 0.5, 0.5);
-		glTranslatef(0.0f, 0.0f, 2.0f);
-		glScalef(2.0,5.0,2.0);
+		glTranslatef(0.0f, 0.0f, 1.0f);
+		glScalef(2.0, 5.0, 2.0);
 		glutSolidCube(1.0);
+	glPopMatrix();
+	//rodes
+	glPushMatrix();
+		glColor3f(0.7, 0.7, 0.7);
+		glTranslatef(0.7f,2.0f,0.0f);
+		glRotatef(90, 0, 1, 0);
+		glutSolidTorus(0.1, 0.2,8,10);
 	glPopMatrix();
 	glPushMatrix();
 		glColor3f(0.7, 0.7, 0.7);
-		glTranslatef(5,0,0);
-		glutSolidTorus(0.1, 0.2,10,10);
+		glTranslatef(-0.7f, 2.0f, 0.0f);
+		glRotatef(90, 0, 1, 0);
+		glutSolidTorus(0.1, 0.2, 8, 10);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(0.7, 0.7, 0.7);
+		glTranslatef(0.7f, -2.0f, 0.0f);
+		glRotatef(90, 0, 1, 0);
+		glutSolidTorus(0.1, 0.2, 8, 10);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(0.7, 0.7, 0.7);
+		glTranslatef(-0.7f, -2.0f, 0.0f);
+		glRotatef(90, 0, 1, 0);
+		glutSolidTorus(0.1, 0.2, 8, 10);
+	glPopMatrix();
+}
+void vaixell() {
+	//cos vaixell
+	glPushMatrix();
+		glColor3f(0.5, 0.4, 0.1);
+		glTranslatef(1.0f, 1.0f, 1.0f);
+		glScalef(0.35f, 1.0f, 1.0f);
+		gluCilindre(7, 10, 3, 300, 1);
+	glPopMatrix();
+	//tapa superior vaixell
+	glPushMatrix();
+		glColor3f(0.5, 0.4, 0.1);
+		glTranslatef(1.0f, 1.0f, 4.0f);
+		glScalef(0.35f, 1.0f, 1.0f);
+		gluDisc(0, 10, 300, 1);
+	glPopMatrix();
+	//tapa inferior vaixell
+	glPushMatrix();
+		glColor3f(0.5, 0.4, 0.1);
+		glTranslatef(1.0f, 1.0f, 1.0f);
+		glScalef(0.35f, 1.0f, 1.0f);
+		gluDisc(0, 7, 300, 1);
+	glPopMatrix();
+	//barana
+	glPushMatrix();
+		glColor3f(0.5, 0.4, 0.1);
+		glTranslatef(1.0f, 1.0f, 4.0f);
+		glScalef(0.35f, 1.0f, 1.0f);
+		gluCilindre(10, 10, 0.5, 300, 1);
+	glPopMatrix();
+	//ximeneia
+	glPushMatrix();
+		glColor3f(1.0, 0.1, 0.1);
+		glTranslatef(1.0f, -6.5f, 4.0f);
+		glScalef(1.0f, 1.0f, 1.0f);
+		gluCilindre(0.75, 0.75, 6, 300, 1);
 	glPopMatrix();
 }
 // dibuixa_EscenaGL: Dibuix de l'escena amb comandes GL
@@ -63,6 +122,9 @@ void dibuixa_EscenaGL(char objecte, CColor col_object, bool ref_mat, bool sw_mat
 		glPopMatrix();
 		break;
 
+	case VAIXELL:
+		vaixell();
+		break;
 	case CAMIO:
 		camio();
 		break;

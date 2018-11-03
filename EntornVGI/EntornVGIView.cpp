@@ -164,6 +164,8 @@ BEGIN_MESSAGE_MAP(CEntornVGIView, CView)
 		ON_UPDATE_COMMAND_UI(ID_PROJECCI32841, &CEntornVGIView::OnUpdateAxonometrica)
 		ON_COMMAND(ID_OBJECTE_CAMI32842, &CEntornVGIView::OnObjecteCamio)
 		ON_UPDATE_COMMAND_UI(ID_OBJECTE_CAMI32842, &CEntornVGIView::OnUpdateObjecteCamio)
+		ON_COMMAND(ID_OBJECTE_VAIXELL, &CEntornVGIView::OnObjecteVaixell)
+		ON_UPDATE_COMMAND_UI(ID_OBJECTE_VAIXELL, &CEntornVGIView::OnUpdateObjecteVaixell)
 		END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3790,4 +3792,26 @@ void CEntornVGIView::OnUpdateObjecteCamio(CCmdUI *pCmdUI)
 	}
 	else pCmdUI->SetCheck(0);
 	
+}
+
+
+void CEntornVGIView::OnObjecteVaixell()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	objecte = VAIXELL;
+	if (projeccio == PERSPECT) {
+		OPV.R = 10;
+	}
+	OnPaint();
+	InvalidateRect(NULL, false);
+}
+
+
+void CEntornVGIView::OnUpdateObjecteVaixell(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (objecte == VAIXELL) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
 }

@@ -335,6 +335,8 @@ public:
 	afx_msg void OnUpdateAxonometrica(CCmdUI *pCmdUI);
 	afx_msg void OnObjecteCamio();
 	afx_msg void OnUpdateObjecteCamio(CCmdUI *pCmdUI);
+	afx_msg void OnObjecteVaixell();
+	afx_msg void OnUpdateObjecteVaixell(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // Versión de depuración en EntornVGIView.cpp
