@@ -70,6 +70,7 @@ void vaixell() {
 		glScalef(0.35f, 1.0f, 1.0f);
 		gluCilindre(7, 10, 3, 300, 1);
 	glPopMatrix();
+
 	//tapa superior vaixell
 	glPushMatrix();
 		glColor3f(0.5, 0.4, 0.1);
@@ -77,6 +78,7 @@ void vaixell() {
 		glScalef(0.35f, 1.0f, 1.0f);
 		gluDisc(0, 10, 300, 1);
 	glPopMatrix();
+
 	//tapa inferior vaixell
 	glPushMatrix();
 		glColor3f(0.5, 0.4, 0.1);
@@ -84,6 +86,7 @@ void vaixell() {
 		glScalef(0.35f, 1.0f, 1.0f);
 		gluDisc(0, 7, 300, 1);
 	glPopMatrix();
+
 	//barana
 	glPushMatrix();
 		glColor3f(0.5, 0.4, 0.1);
@@ -91,12 +94,122 @@ void vaixell() {
 		glScalef(0.35f, 1.0f, 1.0f);
 		gluCilindre(10, 10, 0.5, 300, 1);
 	glPopMatrix();
+
 	//ximeneia
 	glPushMatrix();
 		glColor3f(1.0, 0.1, 0.1);
 		glTranslatef(1.0f, -6.5f, 4.0f);
 		glScalef(1.0f, 1.0f, 1.0f);
 		gluCilindre(0.75, 0.75, 6, 300, 1);
+	glPopMatrix();
+
+	//cabina_0_0_0
+	glPushMatrix();
+		glColor3f(0.1, 0.1, 1.0);
+		glTranslatef(1.75f, 1.25f, 4.75f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+	//cabina_1_0_0
+	glPushMatrix();
+		glColor3f(0.1, 0.1, 1.0);
+		glTranslatef(0.25f, 1.25f, 4.75f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+
+	//cabina_0_1_0
+	glPushMatrix();
+		glColor3f(0.1, 0.1, 1.0);
+		glTranslatef(1.75f, 2.75f, 4.75f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+	//cabina_1_1_0
+	glPushMatrix();
+		glColor3f(0.1, 0.1, 1.0);
+		glTranslatef(0.25f, 2.75f, 4.75f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+
+	//cabina_0_0_1
+	glPushMatrix();
+		glColor3f(0.1, 0.1, 1.0);
+		glTranslatef(1.75f, 1.25f, 6.25f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+	//cabina_1_0_1
+	glPushMatrix();
+		glColor3f(0.1, 0.1, 1.0);
+		glTranslatef(0.25f, 1.25f, 6.25f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+
+	//cabina_0_1_1
+	glPushMatrix();
+		glColor3f(1.0, 1.0, 1.0);
+		glTranslatef(1.75f, 2.75f, 6.25f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+	//cabina_1_1_1
+	glPushMatrix();
+		glColor3f(1.0, 1.0, 1.0);
+		glTranslatef(0.25f, 2.75f, 6.25f);
+		glutSolidCube(1.5f);
+	glPopMatrix();
+
+	//Aspaesq
+	glPushMatrix();
+		glColor3f(1.0,0.5,1.0);
+		glTranslatef(5.0f,0.0f,1.5f);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(1.0, 0.6, 1.0);
+		glTranslatef(5.0f, 0.0f, 1.5f);
+		glRotatef(45, 1, 0, 0);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(1.0, 0.75, 1.0);
+		glTranslatef(5.0f, 0.0f, 1.5f);
+		glRotatef(90, 1, 0, 0);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(1.0, 0.9, 1.0);
+		glTranslatef(5.0f, 0.0f, 1.5f);
+		glRotatef(135, 1, 0, 0);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	//Aspadret
+	glPushMatrix();
+		glColor3f(1.0, 0.5, 1.0);
+		glTranslatef(-3.0f, 0.0f, 1.5f);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(1.0, 0.6, 1.0);
+		glTranslatef(-3.0f, 0.0f, 1.5f);
+		glRotatef(45, 1, 0, 0);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(1.0, 0.75, 1.0);
+		glTranslatef(-3.0f, 0.0f, 1.5f);
+		glRotatef(90, 1, 0, 0);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(1.0, 0.9, 1.0);
+		glTranslatef(-3.0f, 0.0f, 1.5f);
+		glRotatef(135, 1, 0, 0);
+		glScalef(1.0f, 0.15f, 5.25f);
+		glutSolidCube(1.0);
 	glPopMatrix();
 }
 // dibuixa_EscenaGL: Dibuix de l'escena amb comandes GL
