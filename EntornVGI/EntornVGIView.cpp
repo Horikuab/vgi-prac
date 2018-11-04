@@ -2790,7 +2790,7 @@ void CEntornVGIView::OnObjecteEsfera()
 	}
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
 	if (projeccio == ORTO) {
-		mida = 1.0;
+		mida = 0.9;
 	}
 	
 // Crida a OnPaint() per redibuixar l'escena
@@ -2813,7 +2813,7 @@ void CEntornVGIView::OnObjecteTetera()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 	if (projeccio == PERSPECT) {
-		OPV.R = 8.7;
+		OPV.R = 9.5;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
 	if (projeccio == ORTO) {
@@ -2876,11 +2876,11 @@ void CEntornVGIView::OnObjecteTie()
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
 	if (projeccio == PERSPECT) {
-		OPV.R = 200;
+		OPV.R = 250;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogràfica)
 	if (projeccio == ORTO) {
-		mida = 0.5;
+		mida = 0.11;
 	}
 // Crida a OnPaint() per redibuixar l'escena
 	OnPaint();
@@ -3786,6 +3786,7 @@ void CEntornVGIView::OnAxonometrica()
 	InvalidateRect(NULL, false);
 	mobil = true;
 	zzoom = true;
+	OPV.R = 10;
 }
 
 
