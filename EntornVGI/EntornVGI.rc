@@ -382,6 +382,9 @@ BEGIN
         POPUP "Textura"
         BEGIN
             MENUITEM "FItxer Imatge",               ID_ILUMINACIO_TEXTURA_FITXERIMATGE, CHECKED
+            MENUITEM "Fusta",                       ID_TEXTURA_FUSTA, CHECKED
+            MENUITEM "Marbre",                      ID_TEXTURA_MARBRE, CHECKED
+            MENUITEM "Metall",                      ID_TEXTURA_METALL, CHECKED
         END
     END
     POPUP "Llums"

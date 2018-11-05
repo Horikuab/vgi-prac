@@ -337,6 +337,12 @@ public:
 	afx_msg void OnUpdateObjecteCamio(CCmdUI *pCmdUI);
 	afx_msg void OnObjecteVaixell();
 	afx_msg void OnUpdateObjecteVaixell(CCmdUI *pCmdUI);
+	afx_msg void OnTexturaFusta();
+	afx_msg void OnUpdateTexturaFusta(CCmdUI *pCmdUI);
+	afx_msg void OnTexturaMarbre();
+	afx_msg void OnUpdateTexturaMarbre(CCmdUI *pCmdUI);
+	afx_msg void OnTexturaMetall();
+	afx_msg void OnUpdateTexturaMetall(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // Versión de depuración en EntornVGIView.cpp
