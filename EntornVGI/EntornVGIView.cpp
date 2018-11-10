@@ -2735,7 +2735,7 @@ void CEntornVGIView::OnObjecteCub()
 	objecte = CUB;
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 9.7;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
@@ -2765,7 +2765,7 @@ void CEntornVGIView::OnObjecteCubRGB()
 	objecte = CUB_RGB;
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 20;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
@@ -2792,7 +2792,7 @@ void CEntornVGIView::OnObjecteEsfera()
 	objecte = ESFERA;
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 11.0;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
@@ -2819,7 +2819,7 @@ void CEntornVGIView::OnObjecteTetera()
 	objecte = TETERA;
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 9.5;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
@@ -2853,7 +2853,7 @@ void CEntornVGIView::OnObjecteTruck()
 	wglMakeCurrent(m_pDC->GetSafeHdc(), m_hRC);	// Desactivem contexte OpenGL
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 269.5;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
@@ -2882,7 +2882,7 @@ void CEntornVGIView::OnObjecteTie()
 	objecte = TIE;
 
 //  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 250;
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
@@ -3809,7 +3809,7 @@ void CEntornVGIView::OnObjecteCamio()
 {
 	// TODO: Agregue aqu� su c�digo de controlador de comandos
 	objecte = CAMIO;
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 10;
 	}
 
@@ -3837,10 +3837,10 @@ void CEntornVGIView::OnObjecteVaixell()
 {
 	// TODO: Agregue aqu� su c�digo de controlador de comandos
 	objecte = VAIXELL;
-	if (projeccio == PERSPECT) {
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
 		OPV.R = 20.1;
 	}
-	if (projeccio == ORTO) {
+	else if (projeccio == ORTO) {
 		mida = 0.5;
 	}
 	OnPaint();
@@ -3864,7 +3864,7 @@ void CEntornVGIView::OnTexturaFusta()
 
 		CString nomf;
 		t_textura = FUSTA;
-		char *nomfitx = "textures/fusta.jpg";
+		char *nomfitx = "textures/fusta.bmp";
 
 		// Entorn VGI: Activaci� el contexte OpenGL
 		wglMakeCurrent(m_pDC->GetSafeHdc(), m_hRC);
@@ -3899,7 +3899,7 @@ void CEntornVGIView::OnTexturaMarbre()
 	// TODO: Agregue aqu� su c�digo de controlador de comandos
 	CString nomf;
 	t_textura = MARBRE;
-	char *nomfitx = "textures/marbre.jpg";
+	char *nomfitx = "textures/MARBRE.bmp";
 
 	// Entorn VGI: Activaci� el contexte OpenGL
 	wglMakeCurrent(m_pDC->GetSafeHdc(), m_hRC);
@@ -3932,7 +3932,7 @@ void CEntornVGIView::OnTexturaMetall()
 	// TODO: Agregue aqu� su c�digo de controlador de comandos
 	CString nomf;
 	t_textura = METALL;
-	char *nomfitx = "textures/metall.jpg";
+	char *nomfitx = "textures/METALL.bmp";
 
 	// Entorn VGI: Activaci� el contexte OpenGL
 	wglMakeCurrent(m_pDC->GetSafeHdc(), m_hRC);
