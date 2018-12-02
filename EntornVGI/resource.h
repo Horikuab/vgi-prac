@@ -33,6 +33,7 @@
 #define ID_OPEN_WITH                    137
 #define ID_DUMMY_COMPILE                138
 #define ID_CLASS_ADD_MEMBER_FUNCTION    139
+#define ID_Boto2                        139
 #define ID_CLASS_ADD_MEMBER_VARIABLE    140
 #define ID_CLASS_DEFINITION             141
 #define ID_CLASS_PROPERTIES             142
@@ -172,13 +173,19 @@
 #define ID_TEXTURA_MARBRE               32845
 #define ID_TEXTURA_METALL               32846
 #define ID_OBJECTE_FRACTALS             32847
+#define ID_Res1                         32848
+#define ID_Boto1                        32851
+#define ID_FRACTALS_SOROLL              32852
+#define ID_FRACTALS_SOROLL32853         32853
+#define ID_FRACTALS_SOROLL32854         32854
+#define ID_FRACTALS_SOROLL32855         32855
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32848
+#define _APS_NEXT_COMMAND_VALUE         32856
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

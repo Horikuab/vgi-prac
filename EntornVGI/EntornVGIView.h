@@ -345,6 +345,20 @@ public:
 	afx_msg void OnUpdateTexturaMetall(CCmdUI *pCmdUI);
 	afx_msg void OnObjecteFractals();
 	afx_msg void OnUpdateObjecteFractals(CCmdUI *pCmdUI);
+	afx_msg void OnRes();
+	afx_msg void OnUpdateRes(CCmdUI *pCmdUI);
+	afx_msg void OnRes1();
+	afx_msg void OnUpdateRes1(CCmdUI *pCmdUI);
+	afx_msg void OnBoto1();
+	afx_msg void OnBoto2();
+	afx_msg void OnFractalsSoroll();
+	afx_msg void OnUpdateFractalsSoroll(CCmdUI *pCmdUI);
+	afx_msg void OnFractalsSoroll32853();
+	afx_msg void OnUpdateFractalsSoroll32853(CCmdUI *pCmdUI);
+	afx_msg void OnFractalsSoroll32854();
+	afx_msg void OnUpdateFractalsSoroll32854(CCmdUI *pCmdUI);
+	afx_msg void OnFractalsSoroll32855();
+	afx_msg void OnUpdateFractalsSoroll32855(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // Versión de depuración en EntornVGIView.cpp

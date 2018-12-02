@@ -452,6 +452,21 @@ void normalcara(int step)
 {
 	int i,j;
 	double v1[3],v2[3],n[3];
+	for (int i = 0; i < FMAX + 1; i += step) {
+		for (int j = 0; j < FMAX + 1; j += step) {
+			v1[0] = abs(j-(j+step));
+			v1[1] = abs(i);
+			v1[2] = abs(zz[i][j]-zz[i][j+step]);
+			v2[0] = abs(j);
+			v2[1] = abs(i - (i + step));
+			v2[2] = abs(zz[i][j] - zz[i + step][j]);
+			normal(v1, v2, n);
+
+			normalsC[i][j][0] = n[0];
+			normalsC[i][j][1] = n[1];
+			normalsC[i][j][2] = n[2];
+		}
+	}
 
 }
 

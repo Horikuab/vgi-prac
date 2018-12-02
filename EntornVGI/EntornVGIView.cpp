@@ -174,7 +174,16 @@ BEGIN_MESSAGE_MAP(CEntornVGIView, CView)
 		ON_COMMAND(ID_TEXTURA_METALL, &CEntornVGIView::OnTexturaMetall)
 		ON_UPDATE_COMMAND_UI(ID_TEXTURA_METALL, &CEntornVGIView::OnUpdateTexturaMetall)
 		ON_COMMAND(ID_OBJECTE_FRACTALS, &CEntornVGIView::OnObjecteFractals)
-		ON_UPDATE_COMMAND_UI(ID_OBJECTE_FRACTALS, &CEntornVGIView::OnUpdateObjecteFractals)
+		ON_COMMAND(ID_Boto1, &CEntornVGIView::OnBoto1)
+		ON_COMMAND(ID_Boto2, &CEntornVGIView::OnBoto2)
+		ON_COMMAND(ID_FRACTALS_SOROLL, &CEntornVGIView::OnFractalsSoroll)
+		ON_UPDATE_COMMAND_UI(ID_FRACTALS_SOROLL, &CEntornVGIView::OnUpdateFractalsSoroll)
+		ON_COMMAND(ID_FRACTALS_SOROLL32853, &CEntornVGIView::OnFractalsSoroll32853)
+		ON_UPDATE_COMMAND_UI(ID_FRACTALS_SOROLL32853, &CEntornVGIView::OnUpdateFractalsSoroll32853)
+		ON_COMMAND(ID_FRACTALS_SOROLL32854, &CEntornVGIView::OnFractalsSoroll32854)
+		ON_UPDATE_COMMAND_UI(ID_FRACTALS_SOROLL32854, &CEntornVGIView::OnUpdateFractalsSoroll32854)
+		ON_COMMAND(ID_FRACTALS_SOROLL32855, &CEntornVGIView::OnFractalsSoroll32855)
+		ON_UPDATE_COMMAND_UI(ID_FRACTALS_SOROLL32855, &CEntornVGIView::OnUpdateFractalsSoroll32855)
 		END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3977,10 +3986,96 @@ void CEntornVGIView::OnObjecteFractals()
 }
 
 
-void CEntornVGIView::OnUpdateObjecteFractals(CCmdUI *pCmdUI)
+
+
+void CEntornVGIView::OnBoto1()
 {
-	// TODO: Agregue aqu� su c�digo de controlador de IU para actualizaci�n de comandos
-	if (objecte == O_FRACTAL) {
+	// TODO: Agregue aquí su código de controlador de comandos
+	pas = pas/2;
+	itera_fractal(soroll, pas);
+	OnPaint();
+	
+	InvalidateRect(NULL, false);
+}
+
+
+void CEntornVGIView::OnBoto2()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	pas = pas *2;
+	itera_fractal(soroll, pas);
+	OnPaint();
+	InvalidateRect(NULL, false);
+}
+
+
+void CEntornVGIView::OnFractalsSoroll()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	soroll = S_LINIAL;
+	OnObjecteFractals();
+}
+
+
+void CEntornVGIView::OnUpdateFractalsSoroll(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (soroll==S_LINIAL) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
+}
+
+
+void CEntornVGIView::OnFractalsSoroll32853()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	soroll = S_QUADRATIC;
+	OnObjecteFractals();
+}
+
+
+void CEntornVGIView::OnUpdateFractalsSoroll32853(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (soroll == S_QUADRATIC) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
+}
+
+
+void CEntornVGIView::OnFractalsSoroll32854()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	soroll = S_SQRT;
+	OnObjecteFractals();
+}
+
+
+void CEntornVGIView::OnUpdateFractalsSoroll32854(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (soroll == S_SQRT) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
+}
+
+
+void CEntornVGIView::OnFractalsSoroll32855()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	soroll = S_DIFERENCIABLE;
+	OnObjecteFractals();
+	
+}
+
+
+void CEntornVGIView::OnUpdateFractalsSoroll32855(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (soroll == S_DIFERENCIABLE) {
 		pCmdUI->SetCheck(1);
 	}
 	else pCmdUI->SetCheck(0);

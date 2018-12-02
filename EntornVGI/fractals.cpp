@@ -27,7 +27,7 @@ double zmin=0;
 // -------------- Entorn VGI: Variables pics
 double cx[6],cy[6],radi[6],hmax[6]; // Centres, radis i alçades de les muntanyes
 double a=1.0*FMAX*(0.65);			// Parametre lemniscata
-
+int pasos;
 // -------------- Entorn VGI: Número de pics
 int npics=0;
 
@@ -83,7 +83,6 @@ for (int i = 0; i < FMAX+1 ; i+=step) {
 }
 // 4. LLEGIR EL NOMBRE DE PICS I ELS VALORS (CENTRE,RADI 
 //    I ALÇADA MÀXIMA.
-int npics = 0;
 
 fscanf(fitx, "%d ", &npics);
 for (int i = 0; i < npics; ++i) {
@@ -101,6 +100,7 @@ double n = t_matriuz_x * t_matriuz_y;
 // Funció retorna el pas entre alçades a la variable step, 
 // calculat en funció del nombre d'alçades inicials i del
 // tamany de la matriu.
+pasos = step;
 return step;
 
 }
@@ -134,7 +134,20 @@ return true;
 //            - paso: Pas d'iteració del fractal.
 void itera_fractal(char bruit,int paso)
 {
-	
+	pasos = paso;
+	int npunts = 0;
+	for (int i = 0; i < FMAX + 1; i += paso) {
+		for (int j = 0; j < FMAX + 1; j += paso) {
+			int inx = j + paso / 2;
+			zz[i][inx] = (zz[i][j] + zz[i][j + paso])/2 + soroll(i,inx,paso,bruit);
+			int iny = i + paso / 2;
+			zz[iny][j] = (zz[i][j] + zz[i + paso][j]) / 2 + soroll(iny, j, paso, bruit);
+			zz[iny][j + paso] = (zz[i][j + paso] + zz[i + paso][j + paso])/2 + soroll(iny, j+paso, paso, bruit);
+			zz[i + paso][inx] = (zz[i + paso][j] + zz[i + paso][j + paso]) / 2 + soroll(i+paso, inx, paso, bruit);
+			zz[iny][inx] = (zz[i][j] + zz[i + paso][j] + zz[i + paso][j + paso] + zz[i][j + paso]) / 4 + soroll(iny, inx, paso, bruit);
+		}
+	}
+	int a = 0;
 }
 
 
@@ -180,6 +193,7 @@ double soroll(int i,int j,double alf,char noise)
 void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 {
 	int i,j;
+	step = pasos;	
 	CColor color_puntF; // Color del vèrtex del fractal.
 
 	i=0;	j=0;
@@ -187,40 +201,43 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 	
 	glPushMatrix();
 // 1. CENTRAR EL FRACTAL EN EL (0,0,0).
-	
+	glTranslatef(-FMAX/2, -FMAX/2, 0);
 
 // 2. DIBUIXAR ELS VÈRTEXS DELS TRIANGLES SEGONS EL PAS (step)
 //    I DEFINIR ELS VECTORS NORMALS DE CADA VÈRTEX EN FUNCIÖ DE
 //	  LA ILUMINACIÖ (iluminacio)
 	bool b[4];
-	while (i < FMAX && j < FMAX) {
-		glBegin(GL_TRIANGLES);
+	for (int i = 0; i < FMAX + 1; i += step) {
+		for (int j = 0; j < FMAX + 1; j += step) {
+			glBegin(GL_TRIANGLES);
 			glColor3f(0.5, 0.5, 0.5);
 			glVertex3f(i, j, zz[i][j]);                     // V1
 			glVertex3f(i + step, j, zz[i + step][j]);        // V2
 			glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
-		glEnd();
+			glEnd();
 			glBegin(GL_TRIANGLES);
 			glVertex3f(i, j, zz[i][j]);                     // V1
 			glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
 			glVertex3f(i, j + step, zz[i][j + step]);       // V4
-		glEnd();
+			glEnd();
 
 
 
-		
-		// Donar color al punt del vertex en funció de la reflexió de materials.
-		color_puntF.r = 0.2;	color_puntF.g = 0.75;	color_puntF.b = 0.9;	color_puntF.a = 0.5;
-		
-		b[0] = true;
-		b[1] = true;
-		b[2] = true;
-		b[3] = true;
-		SeleccionaMaterialiColor(MAT_CAP, sw_mater, b, color_puntF);
-			
-		glVertex3f(i, j, zz[i][j]);
-		glEnd();
+
+
+			// Donar color al punt del vertex en funció de la reflexió de materials.
+			color_puntF.r = 0.2;	color_puntF.g = 0.75;	color_puntF.b = 0.9;	color_puntF.a = 0.5;
+
+			b[0] = true;
+			b[1] = true;
+			b[2] = true;
+			b[3] = true;
+			SeleccionaMaterialiColor(MAT_CAP, sw_mater, b, color_puntF);
+			glVertex3f(i, j, zz[i][j]);
+
+		}
 	}
+	
 	glPopMatrix();
 	
 //  3. DIBUIX DEL MAR A L'ALÇADA Z=0.
@@ -235,36 +252,79 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 	
 }
 
+
+
+double is_in_pic(int npic, int x, int y) {
+	double aux = sqrt(pow((x - cx[npic]), 2) + pow((y - cy[npic]), 2));
+	if (aux > radi[npic]) {
+		aux = 0;
+	}
+	return aux;
+}
+
 //------------------ CALCUL DELS SOROLLS  --------------------/
 
 // Càlcul del soroll linial segons la posició del punt (x,y)
 double soroll_lin(int x,int y)
 { 
 double aux_sl=0;
+double d;
+for (int i = 0; i < npics;++i) {
+	d = 0;
+	d = is_in_pic(i, x, y);
+	if (d > 0) {
+		d = hmax[i] * (1 - d / radi[i]);
+	}
+	aux_sl += d;
+}
 
-return aux_sl;
+return aux_sl/npics;
 }
 
 // Càlcul del soroll quadràtic segons la posició del punt (x,y)
 double soroll_quad(int x,int y)
 { 
 double aux_sq=0;
-
-return aux_sq;
+double d;
+for (int i = 0; i < npics; ++i) {
+	d = 0;
+	d = is_in_pic(i, x, y);
+	if (d > 0) {
+		d = hmax[i] * (1 - d *(d/ (radi[i]*radi[i])));
+	}
+	aux_sq += d;
+}
+return aux_sq/npics;
 }
 
 // Càlcul del soroll arrel quadrada segons la posició del punt (x,y)
 double soroll_sq(int x,int y)
 { 
 double aux_sq=0;
-
-return aux_sq;
+double d;
+for (int i = 0; i < npics; ++i) {
+	d = 0;
+	d = is_in_pic(i, x, y);
+	if (d > 0) {
+		d = hmax[i] * (1 - sqrt(d) / sqrt(radi[i]));
+	}
+	aux_sq += d;
+}
+return aux_sq/npics;
 }
 
 // Càlcul del soroll diferenciable segons la posició del punt (x,y)
 double soroll_dif(int x,int y)
 { 
 double aux_sd=0;
-
+double d;
+for (int i = 0; i < npics; ++i) {
+	d = 0;
+	d = is_in_pic(i, x, y);
+	if (d > 0) {
+		d = hmax[i] * (1 - d / radi[i])*(1 - d / radi[i]);
+	}
+	aux_sd += d;
+}
 return aux_sd;
 }
