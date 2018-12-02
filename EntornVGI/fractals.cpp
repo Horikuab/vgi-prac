@@ -206,7 +206,7 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 // 2. DIBUIXAR ELS VÈRTEXS DELS TRIANGLES SEGONS EL PAS (step)
 //    I DEFINIR ELS VECTORS NORMALS DE CADA VÈRTEX EN FUNCIÖ DE
 //	  LA ILUMINACIÖ (iluminacio)
-	bool b[4];
+	bool b;
 	for (int i = 0; i < FMAX + 1; i += step) {
 		for (int j = 0; j < FMAX + 1; j += step) {
 			glBegin(GL_TRIANGLES);
@@ -228,11 +228,8 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 			// Donar color al punt del vertex en funció de la reflexió de materials.
 			color_puntF.r = 0.2;	color_puntF.g = 0.75;	color_puntF.b = 0.9;	color_puntF.a = 0.5;
 
-			b[0] = true;
-			b[1] = true;
-			b[2] = true;
-			b[3] = true;
-			SeleccionaMaterialiColor(MAT_CAP, sw_mater, b, color_puntF);
+			b = true;
+			SeleccionaMaterialiColor(MAT_CAP,sw_mater,b, color_puntF);
 			glVertex3f(i, j, zz[i][j]);
 
 		}
