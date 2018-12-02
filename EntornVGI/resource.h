@@ -1,5 +1,5 @@
 //{{NO_DEPENDENCIES}}
-// Archivo de inclusiï¿½n generado de Microsoft Visual C++.
+// Archivo de inclusión generado de Microsoft Visual C++.
 // Usado por EntornVGI.rc
 //
 #define IDD_ABOUTBOX                    100
@@ -171,13 +171,14 @@
 #define ID_TEXTURA_FUSTA                32844
 #define ID_TEXTURA_MARBRE               32845
 #define ID_TEXTURA_METALL               32846
+#define ID_OBJECTE_FRACTALS             32847
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32847
+#define _APS_NEXT_COMMAND_VALUE         32848
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

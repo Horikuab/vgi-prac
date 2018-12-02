@@ -11,7 +11,7 @@
 
 // Entorn VGI: Constants de l'aplicació entorn VGI
 #include "constants.h"
-
+#include "fractals.h"
 // Entorn VGI: Includes shaders GLSL
 #include <gl/glew.h>
 #include <gl/wglew.h>
@@ -343,6 +343,8 @@ public:
 	afx_msg void OnUpdateTexturaMarbre(CCmdUI *pCmdUI);
 	afx_msg void OnTexturaMetall();
 	afx_msg void OnUpdateTexturaMetall(CCmdUI *pCmdUI);
+	afx_msg void OnObjecteFractals();
+	afx_msg void OnUpdateObjecteFractals(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // Versión de depuración en EntornVGIView.cpp

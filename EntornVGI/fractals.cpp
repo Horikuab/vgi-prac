@@ -42,7 +42,7 @@ int llegir_pts(char *nomf)
 	FILE *fd;
 	step=1;
 // 1. INICIALITZAR MATRIUS zz i normals
-for(i=0;i<=512;i=i++)
+	for(i=0;i<=512;i=i++)
 	{ for(j=0;j<=FMAX;j=j++)
 		{	zz[i][j]=0.0;
 			normalsC[i][j][0]=0.0;
@@ -61,15 +61,42 @@ for(i=0;i<=6;i=i++)
 
 // 3. OBRIR FITXER FRACTAL I LLEGIR ALC,ADES ASSIGNANT-LES
 //    A LA MATRIU ZZ DE FORMA EQUIESPAIADA.
+FILE *fitx = fopen(nomf, "r");
+int t_matriuz_x = 0;
+int t_matriuz_y = 0;
+char c;
+char *linia = "";
 
+fscanf(fitx, "%d %d ", &t_matriuz_x, &t_matriuz_y);
+int aux = 0;
+int aux1 = 0;
+if (t_matriuz_x % 2 != 0) aux = t_matriuz_x - 1;
+else aux = t_matriuz_x;
+
+step = FMAX / aux;
+int npunts = 0;
+for (int i = 0; i < FMAX+1 ; i+=step) {
+	for (int j = 0; j < FMAX+1; j += step) {
+		fscanf(fitx, "%lf ", &zz[i][j]);
+		++npunts;
+	}
+}
 // 4. LLEGIR EL NOMBRE DE PICS I ELS VALORS (CENTRE,RADI 
 //    I ALÇADA MÀXIMA.
+int npics = 0;
+
+fscanf(fitx, "%d ", &npics);
+for (int i = 0; i < npics; ++i) {
+	fscanf(fitx, "%lf %lf %lf %lf ", &cx[i], &cy[i], &radi[i], &hmax[i]);
+}
 
 // 5. INICIALITZAR LA VARIABLE ALEATÒRIA
 srand( (unsigned) time(NULL));
 r=(double) rand()/RAND_MAX;
 
 // 6. CALCUL DEL MAXIM I MINIM DE LES ALÇADES INICIALS
+double n = t_matriuz_x * t_matriuz_y;
+
 
 // Funció retorna el pas entre alçades a la variable step, 
 // calculat en funció del nombre d'alçades inicials i del
@@ -160,18 +187,40 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 	
 	glPushMatrix();
 // 1. CENTRAR EL FRACTAL EN EL (0,0,0).
+	
 
 // 2. DIBUIXAR ELS VÈRTEXS DELS TRIANGLES SEGONS EL PAS (step)
 //    I DEFINIR ELS VECTORS NORMALS DE CADA VÈRTEX EN FUNCIÖ DE
 //	  LA ILUMINACIÖ (iluminacio)
+	bool b[4];
+	while (i < FMAX && j < FMAX) {
+		glBegin(GL_TRIANGLES);
+			glColor3f(0.5, 0.5, 0.5);
+			glVertex3f(i, j, zz[i][j]);                     // V1
+			glVertex3f(i + step, j, zz[i + step][j]);        // V2
+			glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
+		glEnd();
+			glBegin(GL_TRIANGLES);
+			glVertex3f(i, j, zz[i][j]);                     // V1
+			glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
+			glVertex3f(i, j + step, zz[i][j + step]);       // V4
+		glEnd();
 
-	glBegin(GL_TRIANGLES);
-// Donar color al punt del vertex en funció de la reflexió de materials.
+
+
+		
+		// Donar color al punt del vertex en funció de la reflexió de materials.
 		color_puntF.r = 0.2;	color_puntF.g = 0.75;	color_puntF.b = 0.9;	color_puntF.a = 0.5;
-		SeleccionaMaterialiColor(MAT_CAP, sw_mater, true, color_puntF);
-		glVertex3f(i,j,zz[i][j]);
-	glEnd();
-
+		
+		b[0] = true;
+		b[1] = true;
+		b[2] = true;
+		b[3] = true;
+		SeleccionaMaterialiColor(MAT_CAP, sw_mater, b, color_puntF);
+			
+		glVertex3f(i, j, zz[i][j]);
+		glEnd();
+	}
 	glPopMatrix();
 	
 //  3. DIBUIX DEL MAR A L'ALÇADA Z=0.
@@ -180,7 +229,7 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 		glColor4f(0.2f,0.75f,0.9f,0.5f);
 		// Donar color al punt en funció de la reflexió de materials.
 		color_puntF.r = 0.2;	color_puntF.g = 0.75;	color_puntF.b = 0.9;	color_puntF.a = 0.5;
-		SeleccionaMaterialiColor(MAT_CAP, sw_mater, true, color_puntF);
+		SeleccionaMaterialiColor(MAT_CAP, sw_mater, b, color_puntF);
 		glRectf(-FMAX/2,-FMAX/2,FMAX/2,FMAX/2);
 	glDisable(GL_BLEND);
 	

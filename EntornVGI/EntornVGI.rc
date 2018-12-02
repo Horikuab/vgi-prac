@@ -338,6 +338,7 @@ BEGIN
         MENUITEM "Truck",                       32790, CHECKED
         MENUITEM "Camió",                       ID_OBJECTE_CAMI32842, CHECKED
         MENUITEM "Vaixell",                     ID_OBJECTE_VAIXELL, CHECKED
+        MENUITEM "Fractals",                    ID_OBJECTE_FRACTALS, CHECKED
     END
     POPUP "Transforma"
     BEGIN

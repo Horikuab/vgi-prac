@@ -14,7 +14,7 @@
 #include "stdafx.h"
 #include "material.h"
 #include "escena.h"
-
+#include "fractals.h"
 // TEXTURES: Vector de noms de textura
 GLuint texturID[NUM_MAX_TEXTURES] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
@@ -281,6 +281,9 @@ void dibuixa_EscenaGL(char objecte, CColor col_object, bool ref_mat, bool sw_mat
 		sea();
 		break;
 
+	case O_FRACTAL:
+		fract(objecte, ref_mat, sw_mat, textur);
+		break;
 // Dibuix de l'objecte 3DS
 	case OBJ3DS:
 		// Definició propietats de reflexió (emissió, ambient, difusa, especular) del material.

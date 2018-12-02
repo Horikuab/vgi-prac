@@ -173,6 +173,8 @@ BEGIN_MESSAGE_MAP(CEntornVGIView, CView)
 		ON_UPDATE_COMMAND_UI(ID_TEXTURA_MARBRE, &CEntornVGIView::OnUpdateTexturaMarbre)
 		ON_COMMAND(ID_TEXTURA_METALL, &CEntornVGIView::OnTexturaMetall)
 		ON_UPDATE_COMMAND_UI(ID_TEXTURA_METALL, &CEntornVGIView::OnUpdateTexturaMetall)
+		ON_COMMAND(ID_OBJECTE_FRACTALS, &CEntornVGIView::OnObjecteFractals)
+		ON_UPDATE_COMMAND_UI(ID_OBJECTE_FRACTALS, &CEntornVGIView::OnUpdateObjecteFractals)
 		END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2326,8 +2328,8 @@ void CEntornVGIView::OnArxiuObrirFractal()
 	char *nomfitx = CString2Char(nom);
 
 // Entorn VGI: Variable de tipus char *nomfitx cont� el nom del fitxer seleccionat
-
-
+	int step = llegir_pts(nomfitx);
+	itera_fractal('L', step);
 // Crida a OnPaint() per redibuixar l'escena
 	InvalidateRect(NULL, false);
 }
@@ -3954,6 +3956,31 @@ void CEntornVGIView::OnUpdateTexturaMetall(CCmdUI *pCmdUI)
 {
 	// TODO: Agregue aqu� su c�digo de controlador de IU para actualizaci�n de comandos
 	if (t_textura == METALL) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
+}
+
+
+void CEntornVGIView::OnObjecteFractals()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	objecte = O_FRACTAL;
+	if (projeccio == AXONOM || projeccio == PERSPECT) {
+		OPV.R = 20.1;
+	}
+	else if (projeccio == ORTO) {
+		mida = 0.5;
+	}
+	OnPaint();
+	InvalidateRect(NULL, false);
+}
+
+
+void CEntornVGIView::OnUpdateObjecteFractals(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aqu� su c�digo de controlador de IU para actualizaci�n de comandos
+	if (objecte == O_FRACTAL) {
 		pCmdUI->SetCheck(1);
 	}
 	else pCmdUI->SetCheck(0);
