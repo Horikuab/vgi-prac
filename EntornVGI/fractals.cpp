@@ -210,7 +210,7 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 	for (int i = 0; i < FMAX + 1; i += step) {
 		for (int j = 0; j < FMAX + 1; j += step) {
 			glBegin(GL_TRIANGLES);
-			glColor3f(0.5, 0.5, 0.5);
+			glColor3f(0.45+(zz[i][j]/90), 0.7+ (zz[i][j] / 70), 0.7- (zz[i][j] / 100));
 			glVertex3f(i, j, zz[i][j]);                     // V1
 			glVertex3f(i + step, j, zz[i + step][j]);        // V2
 			glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
@@ -226,10 +226,10 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 
 
 			// Donar color al punt del vertex en funció de la reflexió de materials.
-			color_puntF.r = 0.2;	color_puntF.g = 0.75;	color_puntF.b = 0.9;	color_puntF.a = 0.5;
+			color_puntF.r = 0.4 + (zz[i][j] / 90);	color_puntF.g = 0.75 + (zz[i][j] / 70);	color_puntF.b = 0.2 - (zz[i][j] / 50);	color_puntF.a = 0.5*0.005*i;
 
 			b = true;
-			SeleccionaMaterialiColor(MAT_CAP,sw_mater,b, color_puntF);
+			SeleccionaMaterialiColor(MAT_CAP, sw_mater,b, color_puntF);
 			glVertex3f(i, j, zz[i][j]);
 
 		}
