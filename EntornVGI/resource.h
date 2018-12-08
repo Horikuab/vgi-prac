@@ -179,13 +179,15 @@
 #define ID_FRACTALS_SOROLL32853         32853
 #define ID_FRACTALS_SOROLL32854         32854
 #define ID_FRACTALS_SOROLL32855         32855
+#define ID_FRACTALS_NO                  32856
+#define ID_FRACTALS_PALETA              32857
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32856
+#define _APS_NEXT_COMMAND_VALUE         32858
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

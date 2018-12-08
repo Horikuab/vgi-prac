@@ -75,12 +75,18 @@ else aux = t_matriuz_x;
 
 step = FMAX / aux;
 int npunts = 0;
+double max = 0;
+double min = zz[i][j];
 for (int i = 0; i < FMAX+1 ; i+=step) {
-	for (int j = 0; j < FMAX+1; j += step) {
+	for (int j = 0; j < FMAX + 1; j += step) {
 		fscanf(fitx, "%lf ", &zz[i][j]);
 		++npunts;
+		if (max < zz[i][j]) max = zz[i][j];
+		if (min > zz[i][j]) min = zz[i][j];
 	}
 }
+zmax = max;
+zmin = min;
 // 4. LLEGIR EL NOMBRE DE PICS I ELS VALORS (CENTRE,RADI 
 //    I ALÇADA MÀXIMA.
 
@@ -102,6 +108,15 @@ double n = t_matriuz_x * t_matriuz_y;
 // tamany de la matriu.
 pasos = step;
 return step;
+
+}
+
+int get_K(double a) {
+	double h = zmax-zmin;
+	int n = h / 24;
+	
+	return a / n;
+
 
 }
 
@@ -206,31 +221,67 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 // 2. DIBUIXAR ELS VÈRTEXS DELS TRIANGLES SEGONS EL PAS (step)
 //    I DEFINIR ELS VECTORS NORMALS DE CADA VÈRTEX EN FUNCIÖ DE
 //	  LA ILUMINACIÖ (iluminacio)
-	bool b;
+	
+	bool b = true;
 	for (int i = 0; i < FMAX + 1; i += step) {
 		for (int j = 0; j < FMAX + 1; j += step) {
-			glBegin(GL_TRIANGLES);
-			glColor3f(0.45+(zz[i][j]/90), 0.7+ (zz[i][j] / 70), 0.7- (zz[i][j] / 100));
-			glVertex3f(i, j, zz[i][j]);                     // V1
-			glVertex3f(i + step, j, zz[i + step][j]);        // V2
-			glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
-			glEnd();
-			glBegin(GL_TRIANGLES);
-			glVertex3f(i, j, zz[i][j]);                     // V1
-			glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
-			glVertex3f(i, j + step, zz[i][j + step]);       // V4
-			glEnd();
+			int K = get_K(zz[i][j]);
+			if (iluminacio == 'f') {
+				glBegin(GL_TRIANGLES);
+				glColor3f(med_colorR[K], med_colorG[K], med_colorB[K]);
+				glVertex3f(i, j, zz[i][j]);                     // V1
+				glVertex3f(i + step, j, zz[i + step][j]);        // V2
+				glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
+				glEnd();
+				glBegin(GL_TRIANGLES);
+				glVertex3f(i, j, zz[i][j]);                     // V1
+				glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
+				glVertex3f(i, j + step, zz[i][j + step]);       // V4
+				glEnd();
+
+			}
+			else if (iluminacio == 'p') {
+
+				glBegin(GL_TRIANGLES);
+					glNormal3f(normalsC[i][j][0], normalsC[i][j][1], normalsC[i][j][2]); // VNorm.  
+					glVertex3f(i, j, zz[i][j]);                    // V1
+					glVertex3f(i + step, j, zz[i + step][j]);        // V2
+					glVertex3f(i + step, j + step, zz[i + step][j+step]);    // V3
+				glEnd();
+				glBegin(GL_TRIANGLES);
+					glNormal3f(normalsV[i][j][0], normalsV[i][j][1], normalsV[i][j][2]); // VNorm.        
+					glVertex3f(i, j, zz[i][j]);                        // V1
+					glVertex3f(i + step, j + step, zz[i + step][j + step]);     // V3
+					glVertex3f(i, j + step, zz[i][j + step]);        // V4
+				glEnd();
+				// Donar color al punt del vertex en funció de la reflexió de materials.
+				color_puntF.r = med_colorR[K];	color_puntF.g = med_colorG[K];	color_puntF.b = med_colorB[K];	color_puntF.a = 0.5*0.005*i;
+
+				b = true;
+				SeleccionaMaterialiColor(MAT_CAP, sw_mater, b, color_puntF);
+				glVertex3f(i, j, zz[i][j]);
+			}
+			else {
+				glBegin(GL_TRIANGLES);
+				glNormal3f(normalsV[i][j][0], normalsV[i][j][1], normalsV[i][j][2]);// Normal a V1
+				glVertex3f(i, j, zz[i][j]);                             // V1
+				glNormal3f(normalsV[i + step][j][0], normalsV[i + step][j][1],normalsV[i + step][j][2]);      // Normal a V2
+				glVertex3f(i + step, j, zz[i + step][j]);                  // V2
+				glNormal3f(normalsV[i + step][j + step][0], normalsV[i + step][j + step][1],normalsV[i + step][j + step][2]);  // Normal a V3
+				glVertex3f(i + step, j + step, zz[i + step][j + step]);           // V3
+				glEnd();
+				glBegin(GL_TRIANGLES);
+				glNormal3f(normalsV[i][j][0], normalsV[i][j][1], normalsV[i][j][2]); //Normal a V1
+				glVertex3f(i, j, zz[i][j]);                              // V1
+				glNormal3f(normalsV[i + step][j + step][0], normalsV[i + step][j + step][1],normalsV[i + step][j + step][2]);  // Normal a V3
+				glVertex3f(i + step, j + step, zz[i + step][j + step]);           // V3
+				glNormal3f(normalsV[i][j + step][0], normalsV[i][j + step][1],normalsV[i][j + step][2]);         // Normal a V4
+				glVertex3f(i, j + step, zz[i][j + step]);              // V4
+				glEnd();
+			}
 
 
 
-
-
-			// Donar color al punt del vertex en funció de la reflexió de materials.
-			color_puntF.r = 0.4 + (zz[i][j] / 90);	color_puntF.g = 0.75 + (zz[i][j] / 70);	color_puntF.b = 0.2 - (zz[i][j] / 50);	color_puntF.a = 0.5*0.005*i;
-
-			b = true;
-			SeleccionaMaterialiColor(MAT_CAP, sw_mater,b, color_puntF);
-			glVertex3f(i, j, zz[i][j]);
 
 		}
 	}

@@ -346,6 +346,8 @@ BEGIN
             MENUITEM "Soroll-Quadratic",            ID_FRACTALS_SOROLL32853, CHECKED
             MENUITEM "Soroll-SQRT",                 ID_FRACTALS_SOROLL32854, CHECKED
             MENUITEM "Soroll-Diferencial",          ID_FRACTALS_SOROLL32855, CHECKED
+            MENUITEM "No-Soroll",                   ID_FRACTALS_NO, CHECKED
+            MENUITEM "Paleta",                      ID_FRACTALS_PALETA, CHECKED
         END
     END
     POPUP "Transforma"
