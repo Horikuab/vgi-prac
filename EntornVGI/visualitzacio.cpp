@@ -215,20 +215,20 @@ void Projeccio_Orto(int minx,int miny,int maxx,int maxy)
 	float w = maxx - minx;
 	float h = maxy - miny;
 	float a = 1;
-	if (w < h) {
+	if (w > h) {
 		
 		a =  w/h ;
 		glViewport(minx, miny, w, h);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(-10*a, 10*a, -10, 10, -10, 10);
+		glOrtho(-10*a, 10*a, -10, 10, -15, 20);
 	}
 	else {
 		a = h/w;
 		glViewport(minx, miny, w, h);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(-10, 10, -10*a, 10*a, -10, 10);
+		glOrtho(-10, 10, -10*a, 10*a, -15, 20);
 	}
 	
 	glMatrixMode(GL_MODELVIEW);

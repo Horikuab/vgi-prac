@@ -2751,7 +2751,7 @@ void CEntornVGIView::OnObjecteCub()
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
 	if (projeccio == ORTO) {
-		mida = 1.0;
+		mida = 2.0;
 	}
 	
 
@@ -2835,7 +2835,7 @@ void CEntornVGIView::OnObjecteTetera()
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
 	if (projeccio == ORTO) {
-		mida = 1.0;
+		mida = 2.0;
 	}
 	
 	
@@ -2869,7 +2869,7 @@ void CEntornVGIView::OnObjecteTruck()
 	}
 //	Canviar l'escala per a centrar la vista (Ortogr�fica)
 	if (projeccio == ORTO) {
-		mida = 0.035;
+		mida = 0.035*2;
 	}
 
 	
