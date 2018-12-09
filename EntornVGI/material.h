@@ -72,7 +72,7 @@ enum
 // Seleccionar Materials
 void SeleccionaMaterial(int quin,bool sw_mater[4]);
 void SeleccionaColor(bool col, bool sw_mater[4], CColor &c_obj);
-void SeleccionaMaterialiColor(int quin,bool col,bool sw_mater[4],CColor &c_obj);
+void SeleccionaMaterialiColor(int quin,bool sw_mater[4], bool col, CColor &c_obj);
 
 bool llegir_Material(CString filename,int index);
 #endif

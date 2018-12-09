@@ -103,7 +103,7 @@ MATERIAL  materials[MAX_MATERIALS] =
 |* SeleccionaMaterialiColor                                                   *|
 |* Selecciona un dels materials	                                              *|
 \******************************************************************************/
-void SeleccionaMaterialiColor(int quin,bool col,bool sw_mater[4],CColor &c_obj)
+void SeleccionaMaterialiColor(int quin,bool sw_mater[4],bool col,CColor &c_obj)
 {
 	const float zeros[4]={0.0f,0.0f,0.0f,1.0f};
 	const float uns[4]={1.0f,1.0f,1.0f,1.0f};

@@ -359,6 +359,10 @@ public:
 	afx_msg void OnUpdateFractalsSoroll32854(CCmdUI *pCmdUI);
 	afx_msg void OnFractalsSoroll32855();
 	afx_msg void OnUpdateFractalsSoroll32855(CCmdUI *pCmdUI);
+	afx_msg void OnFractalsNo();
+	afx_msg void OnUpdateFractalsNo(CCmdUI *pCmdUI);
+	afx_msg void OnFractalsPaleta();
+	afx_msg void OnUpdateFractalsPaleta(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // Versión de depuración en EntornVGIView.cpp

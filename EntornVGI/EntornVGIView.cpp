@@ -184,6 +184,10 @@ BEGIN_MESSAGE_MAP(CEntornVGIView, CView)
 		ON_UPDATE_COMMAND_UI(ID_FRACTALS_SOROLL32854, &CEntornVGIView::OnUpdateFractalsSoroll32854)
 		ON_COMMAND(ID_FRACTALS_SOROLL32855, &CEntornVGIView::OnFractalsSoroll32855)
 		ON_UPDATE_COMMAND_UI(ID_FRACTALS_SOROLL32855, &CEntornVGIView::OnUpdateFractalsSoroll32855)
+		ON_COMMAND(ID_FRACTALS_NO, &CEntornVGIView::OnFractalsNo)
+		ON_UPDATE_COMMAND_UI(ID_FRACTALS_NO, &CEntornVGIView::OnUpdateFractalsNo)
+		ON_COMMAND(ID_FRACTALS_PALETA, &CEntornVGIView::OnFractalsPaleta)
+		ON_UPDATE_COMMAND_UI(ID_FRACTALS_PALETA, &CEntornVGIView::OnUpdateFractalsPaleta)
 		END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3992,7 +3996,7 @@ void CEntornVGIView::OnBoto1()
 {
 	// TODO: Agregue aquí su código de controlador de comandos
 	pas = pas/2;
-	itera_fractal(soroll, pas);
+	for (int i=0;i<10;++i)itera_fractal(soroll, pas);
 	OnPaint();
 	
 	InvalidateRect(NULL, false);
@@ -4003,7 +4007,7 @@ void CEntornVGIView::OnBoto2()
 {
 	// TODO: Agregue aquí su código de controlador de comandos
 	pas = pas *2;
-	itera_fractal(soroll, pas);
+	for (int i = 0; i < 10; ++i)itera_fractal(soroll, pas);
 	OnPaint();
 	InvalidateRect(NULL, false);
 }
@@ -4076,6 +4080,42 @@ void CEntornVGIView::OnUpdateFractalsSoroll32855(CCmdUI *pCmdUI)
 {
 	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
 	if (soroll == S_DIFERENCIABLE) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
+}
+
+
+void CEntornVGIView::OnFractalsNo()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	soroll = S_SENSE;
+	OnObjecteFractals();
+}
+
+
+void CEntornVGIView::OnUpdateFractalsNo(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (soroll == S_SENSE) {
+		pCmdUI->SetCheck(1);
+	}
+	else pCmdUI->SetCheck(0);
+}
+bool paleta = false;
+void CEntornVGIView::OnFractalsPaleta()
+{
+	// TODO: Agregue aquí su código de controlador de comandos
+	paleta = true;
+	OnObjecteFractals();
+}
+
+
+void CEntornVGIView::OnUpdateFractalsPaleta(CCmdUI *pCmdUI)
+{
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	// TODO: Agregue aquí su código de controlador de IU para actualización de comandos
+	if (paleta) {
 		pCmdUI->SetCheck(1);
 	}
 	else pCmdUI->SetCheck(0);
