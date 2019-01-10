@@ -3980,10 +3980,10 @@ void CEntornVGIView::OnObjecteFractals()
 	// TODO: Agregue aquí su código de controlador de comandos
 	objecte = O_FRACTAL;
 	if (projeccio == AXONOM || projeccio == PERSPECT) {
-		OPV.R = 20.1;
+		OPV.R = 520.6;
 	}
 	else if (projeccio == ORTO) {
-		mida = 0.5;
+		mida = 0.035;
 	}
 	OnPaint();
 	InvalidateRect(NULL, false);
@@ -3992,24 +3992,25 @@ void CEntornVGIView::OnObjecteFractals()
 
 
 
-void CEntornVGIView::OnBoto1()
+void CEntornVGIView::OnBoto1() // Reducir resolución
 {
 	// TODO: Agregue aquí su código de controlador de comandos
-	pas = pas/2;
-	for (int i=0;i<10;++i)itera_fractal(soroll, pas);
+	pas = pas * 2;
+	itera_fractal(soroll, pas);
 	OnPaint();
-	
 	InvalidateRect(NULL, false);
 }
 
 
-void CEntornVGIView::OnBoto2()
+void CEntornVGIView::OnBoto2() // Aumentar resolución
 {
 	// TODO: Agregue aquí su código de controlador de comandos
-	pas = pas *2;
-	for (int i = 0; i < 10; ++i)itera_fractal(soroll, pas);
+
+	pas = pas / 2;
+	itera_fractal(soroll, pas);
 	OnPaint();
 	InvalidateRect(NULL, false);
+	
 }
 
 

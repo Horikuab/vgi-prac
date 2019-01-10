@@ -111,13 +111,21 @@ return step;
 
 }
 
+
 int get_K(double a) {
-	double h = zmax-zmin;
-	int n = h / 24;
-	
-	return a / n;
+	if (a > zmax) zmax = a; // actualitza l'alçada maxima si apareix una major
 
+	double k_percentage = 1.0 / 24.0, diff;
 
+	if(a < 0) diff = zmin - a; // alturas negativas
+	else diff = -zmin + a; // alturas positivas
+
+	if (diff < 0) { diff *= -1; }
+
+	double percentage = diff / (zmax - zmin);
+	int K = (int)trunc(percentage / k_percentage);
+
+	return K;
 }
 
 // escriure_pts: Funció d'escriptura en un fitxer de les alçades i pics 
@@ -151,18 +159,19 @@ void itera_fractal(char bruit,int paso)
 {
 	pasos = paso;
 	int npunts = 0;
-	for (int i = 0; i < FMAX + 1; i += paso) {
-		for (int j = 0; j < FMAX + 1; j += paso) {
+
+	// Iterar per la malla del fractal deixant fora els contorns laterals que no hauran de canviar mai
+	for (int i = 0; i < FMAX; i += paso) {
+		for (int j = 0; j < FMAX; j += paso) {
 			int inx = j + paso / 2;
 			zz[i][inx] = (zz[i][j] + zz[i][j + paso])/2 + soroll(i,inx,paso,bruit);
 			int iny = i + paso / 2;
 			zz[iny][j] = (zz[i][j] + zz[i + paso][j]) / 2 + soroll(iny, j, paso, bruit);
 			zz[iny][j + paso] = (zz[i][j + paso] + zz[i + paso][j + paso])/2 + soroll(iny, j+paso, paso, bruit);
-			zz[i + paso][inx] = (zz[i + paso][j] + zz[i + paso][j + paso]) / 2 + soroll(i+paso, inx, paso, bruit);
-			zz[iny][inx] = (zz[i][j] + zz[i + paso][j] + zz[i + paso][j + paso] + zz[i][j + paso]) / 4 + soroll(iny, inx, paso, bruit);
+			zz[i + paso][inx] = (zz[i + paso][j] + zz[i + paso][j + paso]) / 2 + soroll(i+paso, inx, paso, bruit); 
+			zz[iny][inx] = (zz[i][j] + zz[i + paso][j] + zz[i + paso][j + paso] + zz[i][j + paso]) / 4 + soroll(iny, inx, paso, bruit); 
 		}
 	}
-	int a = 0;
 }
 
 
@@ -205,6 +214,7 @@ double soroll(int i,int j,double alf,char noise)
 // TRIANGULACIO DEL TERRENY. Dibuix de la muntanya fractal
 // Variables: - Iluminació: Defineix el tipus d'iluminació (filferros, plana o suau).
 //            - step: Pas de dibuix del fractal.
+#include "normals.h"
 void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 {
 	int i,j;
@@ -221,27 +231,25 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 // 2. DIBUIXAR ELS VÈRTEXS DELS TRIANGLES SEGONS EL PAS (step)
 //    I DEFINIR ELS VECTORS NORMALS DE CADA VÈRTEX EN FUNCIÖ DE
 //	  LA ILUMINACIÖ (iluminacio)
-	
 	bool b = true;
-	for (int i = 0; i < FMAX + 1; i += step) {
-		for (int j = 0; j < FMAX + 1; j += step) {
+	for (int i = 0; i < FMAX; i += step) {
+		for (int j = 0; j < FMAX; j += step) {
 			int K = get_K(zz[i][j]);
 			if (iluminacio == 'f') {
 				glBegin(GL_TRIANGLES);
-				glColor3f(med_colorR[K], med_colorG[K], med_colorB[K]);
-				glVertex3f(i, j, zz[i][j]);                     // V1
-				glVertex3f(i + step, j, zz[i + step][j]);        // V2
-				glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
+					glColor3f(med_colorR[K], med_colorG[K], med_colorB[K]);
+					glVertex3f(i, j, zz[i][j]);                     // V1
+					glVertex3f(i + step, j, zz[i + step][j]);        // V2
+					glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
 				glEnd();
 				glBegin(GL_TRIANGLES);
-				glVertex3f(i, j, zz[i][j]);                     // V1
-				glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
-				glVertex3f(i, j + step, zz[i][j + step]);       // V4
+					glVertex3f(i, j, zz[i][j]);                     // V1
+					glVertex3f(i + step, j + step, zz[i + step][j + step]); // V3
+					glVertex3f(i, j + step, zz[i][j + step]);       // V4
 				glEnd();
 
 			}
 			else if (iluminacio == 'p') {
-
 				glBegin(GL_TRIANGLES);
 					glNormal3f(normalsC[i][j][0], normalsC[i][j][1], normalsC[i][j][2]); // VNorm.  
 					glVertex3f(i, j, zz[i][j]);                    // V1
@@ -261,34 +269,31 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 				SeleccionaMaterialiColor(MAT_CAP, sw_mater, b, color_puntF);
 				glVertex3f(i, j, zz[i][j]);
 			}
-			else {
+			else { // iluminacio = 's'
 				glBegin(GL_TRIANGLES);
-				glNormal3f(normalsV[i][j][0], normalsV[i][j][1], normalsV[i][j][2]);// Normal a V1
-				glVertex3f(i, j, zz[i][j]);                             // V1
-				glNormal3f(normalsV[i + step][j][0], normalsV[i + step][j][1],normalsV[i + step][j][2]);      // Normal a V2
-				glVertex3f(i + step, j, zz[i + step][j]);                  // V2
-				glNormal3f(normalsV[i + step][j + step][0], normalsV[i + step][j + step][1],normalsV[i + step][j + step][2]);  // Normal a V3
-				glVertex3f(i + step, j + step, zz[i + step][j + step]);           // V3
+					glNormal3f(normalsV[i][j][0], normalsV[i][j][1], normalsV[i][j][2]);// Normal a V1
+					glVertex3f(i, j, zz[i][j]);                             // V1
+					glNormal3f(normalsV[i + step][j][0], normalsV[i + step][j][1],normalsV[i + step][j][2]);      // Normal a V2
+					glVertex3f(i + step, j, zz[i + step][j]);                  // V2
+					glNormal3f(normalsV[i + step][j + step][0], normalsV[i + step][j + step][1],normalsV[i + step][j + step][2]);  // Normal a V3
+					glVertex3f(i + step, j + step, zz[i + step][j + step]);           // V3
 				glEnd();
 				glBegin(GL_TRIANGLES);
-				glNormal3f(normalsV[i][j][0], normalsV[i][j][1], normalsV[i][j][2]); //Normal a V1
-				glVertex3f(i, j, zz[i][j]);                              // V1
-				glNormal3f(normalsV[i + step][j + step][0], normalsV[i + step][j + step][1],normalsV[i + step][j + step][2]);  // Normal a V3
-				glVertex3f(i + step, j + step, zz[i + step][j + step]);           // V3
-				glNormal3f(normalsV[i][j + step][0], normalsV[i][j + step][1],normalsV[i][j + step][2]);         // Normal a V4
-				glVertex3f(i, j + step, zz[i][j + step]);              // V4
+					glNormal3f(normalsV[i][j][0], normalsV[i][j][1], normalsV[i][j][2]); //Normal a V1
+					glVertex3f(i, j, zz[i][j]);                              // V1
+					glNormal3f(normalsV[i + step][j + step][0], normalsV[i + step][j + step][1],normalsV[i + step][j + step][2]);  // Normal a V3
+					glVertex3f(i + step, j + step, zz[i + step][j + step]);           // V3
+					glNormal3f(normalsV[i][j + step][0], normalsV[i][j + step][1],normalsV[i][j + step][2]);         // Normal a V4
+					glVertex3f(i, j + step, zz[i][j + step]);              // V4
 				glEnd();
 			}
-
-
-
-
 		}
 	}
 	
 	glPopMatrix();
 	
 //  3. DIBUIX DEL MAR A L'ALÇADA Z=0.
+	
 	glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glColor4f(0.2f,0.75f,0.9f,0.5f);
@@ -300,14 +305,13 @@ void fract(char iluminacio,bool paletaColor,bool sw_mater[4],int step)
 	
 }
 
-
-
+// Comprova si el punt passat està dins del radi del npic
 double is_in_pic(int npic, int x, int y) {
-	double aux = sqrt(pow((x - cx[npic]), 2) + pow((y - cy[npic]), 2));
-	if (aux > radi[npic]) {
-		aux = 0;
+	double dist = sqrt(pow((x - cx[npic]), 2) + pow((y - cy[npic]), 2)); // Distàcia Euclideana del punt x,y al npic
+	if (dist > radi[npic]) {
+		dist = 0;
 	}
-	return aux;
+	return dist;
 }
 
 //------------------ CALCUL DELS SOROLLS  --------------------/
@@ -316,17 +320,19 @@ double is_in_pic(int npic, int x, int y) {
 double soroll_lin(int x,int y)
 { 
 double aux_sl=0;
-double d;
-for (int i = 0; i < npics;++i) {
+double d = 0;
+int j = 0;
+for (int i = 0; i < npics;++i) { // Per cada pic
 	d = 0;
-	d = is_in_pic(i, x, y);
+	d = is_in_pic(i, x, y); // Càlcul de la distància del punt x,y al pic i
 	if (d > 0) {
-		d = hmax[i] * (1 - d / radi[i]);
+		d = hmax[i] * (1 - (d / radi[i]));
+		j++;
 	}
 	aux_sl += d;
 }
 
-return aux_sl/npics;
+return aux_sl;
 }
 
 // Càlcul del soroll quadràtic segons la posició del punt (x,y)
@@ -334,15 +340,17 @@ double soroll_quad(int x,int y)
 { 
 double aux_sq=0;
 double d;
+int j=0;
 for (int i = 0; i < npics; ++i) {
 	d = 0;
-	d = is_in_pic(i, x, y);
+	d = is_in_pic(i, x, y); // Càlcul de la distància del punt x,y al pic i
 	if (d > 0) {
-		d = hmax[i] * (1 - d *(d/ (radi[i]*radi[i])));
+		d = hmax[i] * (1 - ((d*d)/(radi[i]*radi[i])));
+		j++;
 	}
 	aux_sq += d;
 }
-return aux_sq/npics;
+return aux_sq;
 }
 
 // Càlcul del soroll arrel quadrada segons la posició del punt (x,y)
@@ -350,15 +358,17 @@ double soroll_sq(int x,int y)
 { 
 double aux_sq=0;
 double d;
+int j=0;
 for (int i = 0; i < npics; ++i) {
 	d = 0;
-	d = is_in_pic(i, x, y);
+	d = is_in_pic(i, x, y); // Càlcul de la distància del punt x,y al pic i
 	if (d > 0) {
-		d = hmax[i] * (1 - sqrt(d) / sqrt(radi[i]));
+		d = hmax[i] * (1 - (sqrt(d) / sqrt(radi[i]))); 
+		j++;
 	}
 	aux_sq += d;
 }
-return aux_sq/npics;
+return aux_sq;
 }
 
 // Càlcul del soroll diferenciable segons la posició del punt (x,y)
@@ -366,11 +376,13 @@ double soroll_dif(int x,int y)
 { 
 double aux_sd=0;
 double d;
+int j=0;
 for (int i = 0; i < npics; ++i) {
 	d = 0;
-	d = is_in_pic(i, x, y);
+	d = is_in_pic(i, x, y); // Càlcul de la distància del punt x,y al pic i
 	if (d > 0) {
-		d = hmax[i] * (1 - d / radi[i])*(1 - d / radi[i]);
+		d = hmax[i] * (1 - (d / radi[i]))*(1 - (d / radi[i]));
+		j++;
 	}
 	aux_sd += d;
 }

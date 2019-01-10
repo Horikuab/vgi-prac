@@ -15,6 +15,7 @@
 #include "stdafx.h"
 #include "visualitzacio.h"
 #include "escena.h"
+#include "normals.h"
 
 // TEXTURES: Vector de noms de textura
 GLuint textures[NUM_MAX_TEXTURES]={0,1,2,3,4,5,6,7,8,9};
@@ -90,8 +91,10 @@ void Iluminacio(char ilumin,bool ifix,bool ll_amb,LLUM lumin,bool textur,bool te
 		break;
 
     case PLANA:
+		
 // Càlcul de les normals a les cares si l'objecte és un fractal
 		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+		normalcara(step);
 // Dibuix de les cares back com a línies en Il.luminacio PLANA i SUAU
 		if (bc_lin) glPolygonMode(GL_BACK,GL_LINE);
 		
@@ -109,8 +112,10 @@ void Iluminacio(char ilumin,bool ifix,bool ll_amb,LLUM lumin,bool textur,bool te
 		break;
 
 	case GOURAUD:
+		
 // Càlcul de les normals als vertexs si l'objecte és un fractal
 		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+		normalvertex(step);
 // Dibuix de les cares back com a línies en Il.luminacio PLANA i SUAU
 		if (bc_lin) glPolygonMode(GL_BACK,GL_LINE);
 		
